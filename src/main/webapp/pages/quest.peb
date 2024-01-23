@@ -1,0 +1,169 @@
+  {% extends 'template' %}
+    {% block head %}
+
+    {% endblock %}
+    {% block content %}
+    <main class="relative w-full mx-auto">
+      <article class="min-h-screen relative short-main pt-12 xs:pt-4 px-3">
+        <div class="game-wrapper relative bg-white p-1 mx-auto">
+          <div class="game-head-wrapper bg-black p-1">
+            <div class="game-head flex items-center text-center">
+              <span>Lvl. {{ quest.no }}</span>
+              <span class="relative">
+                  <div class="timer absolute text-center">
+                  </div>
+              </span>
+              <span>
+                  <div>Hadiah Kuota</div>
+                  <div>{{ kuota }}</div>
+              </span>
+            </div>
+          </div>
+          <div id="blips" class="progress timer-progress flex overflow-hidden">
+              <div class="progress-bar flex flex-col justify-center"></div>
+          </div>
+          <div class="pt-3 pb-16 px-1.5">
+            <div id="quest-text" class="game-text text-center mb-4 leading-none px-2">{{ quest.question }}
+            </div>
+            <div id="puzzle-box" class="game-box relative w-full mx-auto">
+            </div>
+          </div>
+          <div class="game-assist absolute w-full">
+            <div class="btn game-assist-inner relative active" onclick="hint(this)">
+              <span class="game-assist-text absolute">Bantuan</span>
+              <span id="btnHi" class="game-assist-circle absolute flex items-center justify-center">{{ quest.hint }}</span>
+            </div>
+          </div>
+        </div>
+        {#<div style="width: 80%; padding: .75em; background-color: white; margin: 3em auto 1em auto" id="logger">LOG
+        </div>#}
+      </article>
+
+        <audio autoplay>
+            <source src="https://s.tykcdn.com/a/susun/main.mp3" type="audio/mpeg"/>
+        </audio>
+    </main>
+    {% endblock %}
+
+  {% block script %}
+  <script src="assets/js/anime.min.js"></script>
+  <script src="assets/js/animate-game.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+  <script type="text/javascript" src="assets/js/countdown.js"></script>
+
+  <script>
+    let col = {{ quest.col }};
+    let row = {{ quest.row }};
+    let iW = {{ quest.width }};
+    let iH = {{ quest.height }};
+    let time = {{ quest.timer }};
+    let hintCount = {{ quest.hint }};
+    let images = [
+      {% for img in quest.images %}
+        {ix:{{img.index }}, img: '{{ img.code }}', xm: 0, ym: 0},
+      {% endfor %}
+    ];
+
+    $(function () {
+
+        var interval = 0;
+        var i = 0;
+        var max = 100;
+
+        interval = setInterval(function () {
+            i++;
+            $('#blips > .progress-bar').attr("style","width: " + i * max / time + "%");
+            if(i == time){
+                clearInterval(interval);
+            }
+        }, 1000);
+    });
+
+    {#
+    function loggerHtml(...s){
+      let html = '';
+      for (let j = 0; j < s.length; j++) {
+        html += s[j] + '<br/>';
+      }
+      document.getElementById('logger').innerHTML = html;
+    }
+    #}
+
+  </script>
+
+  <script type="text/javascript" src="assets/js/game.js"></script>
+
+  //grayscale
+  <script>
+      start();
+
+      function start() {
+          calculate();
+
+          {% if quest.flagGreyscale %}
+
+              let box = document.getElementById('puzzle-box');
+              let image;
+              let html = '';
+              let p = 5;
+              let midx = (bw - dw + images.length * p) / 2;
+              let midy = (bh - dh - images.length * p) / 2;
+
+              for (let j = 0; j < images.length; j++) {
+                  image = images[j];
+                  html += `<div id="p${image.ix}" class="boxy" style="transform: translateX(${midx}px) translateY(${midy}px);width:${dw}px;height:${dh}px">
+    <div pos="${image.ix}" id="b${image.ix}" class="blocky draggable"
+style="width:${dw - 1}px; height:${dh - 1}px; z-index: 0">
+<img style="width:100%; filter:grayscale(100%); height:100%; object-fit: contain" src="https://s.tykcdn.com/i/susun//${image.img}"/>`;
+
+                  html += '</div></div>'
+
+                  midx -= p;
+                  midy += p;
+              }
+              box.innerHTML = html;
+
+              setTimeout(() => {
+                  for (let j = 0; j < images.length; j++) {
+                      anime({
+                          targets: '#p' + images[j].ix,
+                          translateX: images[j].x,
+                          translateY: images[j].y,
+                          duration: 300
+                      });
+                  }
+                  timer();
+              }, 250);
+
+              {% else %}
+
+              imgboxAnim();
+
+          {% endif %}
+      }
+  </script>
+
+  //preview
+{#  <script>#}
+{#      start();#}
+
+{#      function start() {#}
+{#          calculate();#}
+{#          {% if quest.flagPreview %}#}
+{#              let box = document.getElementById('puzzle-box');#}
+{#              box.innerHTML = '<img style="width: 100%;" src="https://s.tykcdn.com/i/susun/{{ quest.originalImage }}"/>';#}
+{#              let text = document.getElementById('quest-text');#}
+{#              text.innerHTML = 'Perhatikan gambar berikut';#}
+{#              setTimeout(() => {#}
+{#                  imgboxAnim();#}
+{#                  let text = document.getElementById('quest-text');#}
+{#                  text.innerHTML = 'Selesaikan gambar yang telah ditunjukkan sebelumnya';#}
+{#              }, 6000);#}
+{#              {% else %}#}
+{#              imgboxAnim();#}
+{#          {% endif %}#}
+{#      }#}
+{#  </script>#}
+
+  {% endblock %}

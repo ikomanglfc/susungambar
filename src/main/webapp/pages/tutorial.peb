@@ -1,0 +1,158 @@
+{% extends 'template' %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<main class="relative w-full mx-auto">
+  <article class="min-h-screen relative short-main pt-12 xs:pt-4 px-3">
+    <div class="game-wrapper relative bg-white p-1 mx-auto">
+      <div class="game-head-wrapper bg-black p-1">
+        <div class="game-head flex items-center text-center">
+          <span>Lvl. {{ quest.no }}</span>
+          <span class="relative">
+                  <div class="timer absolute text-center">
+                  </div>
+              </span>
+    <span>
+                  <div>Hadiah Kuota</div>
+                  <div>{{ quest.kuota }}</div>
+              </span>
+        </div>
+      </div>
+      <div id="blips" class="progress timer-progress flex overflow-hidden">
+        <div class="progress-bar flex flex-col justify-center"></div>
+      </div>
+      <div class="pt-3 pb-16 px-1.5">
+        <div class="game-text text-center mb-4 leading-none px-2">{{ quest.question }}</div>
+        <div class="relative">
+          <div id="puzzle-box" class="game-box relative w-full mx-auto"></div>
+          <!--bubble geser-->
+          <div id="bubble-geser" class="bubble bubble-geser absolute text-center px-5 py-3 leading-tight shadow-md">Geser gambar 5 &amp; 6 ke posisi yang tepat</div>
+          <!--bubble bantuan-->
+          <div id="bubble-bantuan" class="bubble bubble-bantuan absolute text-center px-5 py-3 leading-tight shadow-md">Gunakan Bantuan untuk meletakkan gambar di posisi yang benar</div>
+        </div>
+      </div>
+      <div class="game-assist game-assist-tutorial absolute w-full">
+        <div id="help-btn" class="btn game-assist-inner relative " onclick="hint(this)">
+          <span class="game-assist-text absolute">Bantuan</span>
+          <span id="btnHi" class="game-assist-circle absolute flex items-center justify-center">{{ quest.hint }}</span>
+        </div>
+{#        <button class="btn btn-skip flex items-center mx-auto px-4 py-1">#}
+{#            <a href="ready"><img class="mr-2" src="https://s.tykcdn.com/assets/susun/close-w.png" /></a>#}
+{#            Lewati#}
+{#        </button>#}
+      </div>
+    </div>
+    {#<div style="width: 80%; padding: .75em; background-color: white; margin: 3em auto 1em auto" id="logger">LOG
+    </div>#}
+  </article>
+  <div id="Countdown" class="countdown absolute w-full h-full top-0">
+    <div id="a" class="bubble bubble-bantuan bubble-ready absolute text-center px-5 py-3 leading-tight shadow-md">Kamu sudah siap nih! Yuk mulai main dan kumpulkan kuotanya!</div>
+    <img id="b" src="https://s.tykcdn.com/assets/susun/3.svg" />
+    <img id="c" src="https://s.tykcdn.com/assets/susun/2.svg" />
+    <img id="d" src="https://s.tykcdn.com/assets/susun/1.svg" />
+  </div>
+
+    <audio autoplay>
+        <source src="https://s.tykcdn.com/a/susun/main.mp3" type="audio/mpeg"/>
+    </audio>
+
+    <div id="PopupTutorial" class="popup active popup-leaderboard fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: block">
+        <div class="flex items-center justify-center min-h-screen text-center sm:block">
+            <div class="popup-backdrop fixed inset-0 w-full bg-black bg-opacity-90" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="popup-content bg-white relative px-4 pt-6 pb-4 inline-block shadow-xl align-middle">
+                <h5 class="leading-none mt-1 mb-6">Yuk cari tau dulu caranya sebelum mulai bermain. Ikuti <span>Tutorial</span> nya sekarang juga</h5>
+                <button class="btn-emboss popup-trigger btn-main relative block mx-auto" data-target="#PopupTutorial">
+                    <img src="https://s.tykcdn.com/assets/susun/btn-red.svg" />
+                    <span class="absolute">OK!</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}
+{% block script %}
+<script src="https://s.tykcdn.com/assets/susun/js/anime.min.js"></script>
+<script src="https://s.tykcdn.com/assets/susun/js/animate-game.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+<script type="text/javascript" src="assets/js/countdown-t.js"></script>
+<script src="https://s.tykcdn.com/assets/susun/js/animate-popup.js"></script>
+
+<script>
+  let col = {{ quest.col }};
+  let row = {{ quest.row }};
+  let iW = {{ quest.width }};
+  let iH = {{ quest.height }};
+  let time = {{ quest.timer }};
+  let hintCount = {{ quest.hint }};
+  let step = 0;
+
+  let drag1 = 5;
+  let drag2 = 6;
+
+  let swap1 = 1;
+  let swap2 = 2;
+  let images = [
+    {% for img in quest.images %}
+      {ix:{{img.index }}, img: '{{ img.code }}', xm: 0, ym: 0, fix: {{ img.fixed }}},
+    {% endfor %}
+  ];
+
+  $(function () {
+
+      var interval = 0;
+      var i = 0;
+      var max = 100;
+
+      interval = setInterval(function () {
+          i++;
+          $('#blips > .progress-bar').attr("style","width: " + i * max / time + "%");
+          if(i == time){
+              clearInterval(interval);
+          }
+      }, 1000);
+  });
+
+</script>
+
+<script type="text/javascript" src="assets/js/tutorial.js"></script>
+
+<script>
+  start();
+
+  function nextStep(){
+      step ++;
+      if(step == 1){
+        $('#Countdown').hide();
+        $('#bubble-bantuan').hide();
+      }else if(step == 2){
+        $('#bubble-geser').hide();
+        $('#bubble-bantuan').show();
+        $('#help-btn').addClass('active');
+      }else{
+        quest();
+      }
+  }
+
+  function quest(){
+    $('#Countdown').show();
+    $('#bubble-geser').hide();
+    $('#bubble-bantuan').hide();
+    setTimeout(()=>{
+      startCountDown(()=>{
+          window.location.href = 'tutordone';
+      });
+    }, 1200);
+  }
+
+  function start() {
+    nextStep();
+    calculate();
+    imgboxAnim();
+  }
+</script>
+
+{% endblock %}
+  

@@ -1,0 +1,261 @@
+{% extends 'template' %}
+    {% block content %}
+
+    <style>
+    table {
+        border-collapse: collapse;
+        border: 1px solid black;
+        width:100%;
+        table-layout: fixed;
+        overflow-wrap: break-word;
+    }
+
+    th,td {
+        border: 2px solid whitesmoke;
+    }
+
+    li, tr {
+        color: #fff;
+    }
+
+    </style>
+
+ <main class="relative w-full mx-auto">
+     <article class="content relative pb-6">
+         <a href="/"><img class="info-banner" src="{{ snkBanner }}"/></a>
+
+         <div class="info-btn mt-4">
+             <button class="btn-emboss btn-emboss-long btn-main-now relative block mx-auto">
+                 <a href="ready"><img src="https://s.tykcdn.com/assets/susun/btn-red-xl.svg" />
+                        <span class="absolute">Main Sekarang</span></a>
+             </button>
+         </div>
+         <div class="info-accord pt-10 px-4">
+             <div class="tab w-full overflow-hidden">
+                 <input class="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2">
+                 <label class="flex items-center justify-between cursor-pointer px-5 py-2.5" for="tab-single-one">Cara Main</label>
+                 <div class="tab-content overflow-hidden px-3">
+                     <ol>
+                        <li>
+                            Untuk mulai main SUSUN GAMBAR, kamu harus berlangganan terlebih dahulu dengan ketik REG&lt;spasi&gt;SG kirim SMS ke 99386.
+                        </li>
+                         <li>
+                            Setelah berlangganan, kamu bisa mulai main dari link/url yang diterima di SMS dari 99386.
+                         </li>
+                         <li>
+                            Setelah mengklik link yang diterima melalui sms, kamu dapat langsung bermain. Untuk menyusun gambar, kamu cukup mendrag kotak potongan gambar ke tempat yang ingin kamu pindahkan.
+                         </li>
+                         <li>
+                             Susun seluruh kotaknya ke tempat yang benar agar menjadi gambar yang sempurna dan menangkan hadiah kuota langsung!
+                         </li>
+                     </ol>
+                 </div>
+             </div>
+             <div class="tab w-full overflow-hidden">
+                 <input class="absolute opacity-0" id="tab-single-two" type="radio" name="tabs2">
+                 <label class="flex items-center justify-between cursor-pointer px-5 py-2.5" for="tab-single-two">Syarat &amp; Ketentuan</label>
+                 <div class="tab-content overflow-hidden px-3">
+                     <ol>
+                         <li>SUSUN GAMBAR adalah layanan permainan menyusun gambar berhadiah berbasis web yang berjalan di three.susungambar.com  dan diselenggarakan oleh PT. Triyakom dan 3.
+                         </li>
+                         <li>Program ini khusus untuk pengguna 3. Program ini tidak berlaku bagi karyawan dan keluarga inti dari PT. Triyakom dan 3.
+                         </li>
+                         <li>Untuk bergabung dengan SUSUN GAMBAR, kamu harus berlangganan melalui SMS dengan mengetik REG&lt;spasi&gt;SG lalu kirim ke 99386.
+                         </li>
+                         <li>Kamu bisa menikmati SUSUN GAMBAR hanya dengan Rp1000/hari (otomatis perpanjang). Untuk berhenti berlangganan ketik UNREG&lt;spasi&gt;SG ke 99386.
+                         </li>
+                         <li>Dengan berlangganan SUSUN GAMBAR, kamu mendapatkan 1x kesempatan bermain dan 1x bantuan setiap harinya. Dalam 1x kesempatan bermain, kamu bisa mengerjakan 7 soal susun gambar. Apabila Jatah Main kamu habis sebelum masa perpanjangan, kamu bisa membeli tambahan Jatah Main seharga Rp1000/1 jatah main dengan mengklik button + pada jatah main di halaman profil. Kamu bisa menambah bantuan hingga 2x tiap harinya.
+                         </li>
+                         <li>Bantuan dapat kamu gunakan untuk membantumu meletakkan 1 potongan gambar di kotak yang benar. Apabila bantuanmu habis, kamu dapat membeli tambahan bantuan seharga Rp1000/1 bantuan dengan mengklik button + pada Bantuan di halaman profil. Kamu bisa menambah bantuan hingga 2x tiap harinya.
+                         </li>
+                         <li>Program SUSUN GAMBAR ini akan membagikan hadiah kuota secara langsung tanpa diundi! Adapun untuk tabel hadiahnya seperti berikut :
+                             <div>
+                                 <table>
+                                     Regular Play
+                                     <tr>
+                                         <td>Level</td>
+                                         <td>Prize</td>
+                                     </tr>
+                                     <tr>
+                                         <td>1 (3x2)</td>
+                                         <td>300 MB</td>
+                                     </tr>
+                                     <tr>
+                                         <td>2 (3x3)</td>
+                                         <td>400 MB</td>
+                                     </tr>
+                                     <tr>
+                                         <td>3 (3x3)</td>
+                                         <td>500 MB</td>
+                                     </tr>
+                                     <tr>
+                                         <td>4 (4x3)</td>
+                                         <td>600 MB</td>
+                                     </tr>
+
+                                     <tr>
+                                         <td>5 (4x4)</td>
+                                         <td>750 MB</td>
+                                     </tr>
+                                     <tr>
+                                         <td>6 (4x4)</td>
+                                         <td>1 GB</td>
+                                     </tr>
+                                     <tr>
+                                         <td>7 (5x5)</td>
+                                         <td>10 GB</td>
+                                     </tr>
+                                 </table>
+                                 Setiap berhasil menyelesaikan 1 level Susun Gambar, kamu akan langsung dapat kuota yang dikirim maksimal 1x24 jam ke nomor kamu.
+                                 <br/><br/>
+                                 <table>
+                                     Leaderboard (Top 5 Per Week)
+                                     <tr>
+                                         <td>Rank</td>
+                                         <td>Prize</td>
+                                     </tr>
+                                     <tr>
+                                         <td>5</td>
+                                         <td>400 MB</td>
+                                     </tr>
+                                     <tr>
+                                         <td>4</td>
+                                         <td>500 MB</td>
+                                     </tr>
+                                     <tr>
+                                         <td>3</td>
+                                         <td>600 MB</td>
+                                     </tr>
+                                     <tr>
+                                         <td>2</td>
+                                         <td>750 MB</td>
+                                     </tr>
+
+                                     <tr>
+                                         <td>1</td>
+                                         <td>1 GB</td>
+                                     </tr>
+                                 </table>
+                                 Ada juga kuota tambahan buat kamu yang masuk top 5 user yang berhasil menyelesaikan Susun Gambar terbanyak tiap minggunya.
+                             </div>
+                         </li>
+                         <li>Pemenang yang berhak mendapatkan hadiah adalah pelanggan yang aktif pada layanan ini dan berhasil menyusun gambarnya dengan benar.
+                         </li>
+                         <li>Hadiah kuota akan dikirimkan secara langsung dalam kurun waktu 1x24 jam setelah permainan berakhir. Untuk hadiah mingguan, akan secara langsung dikirimkan dalam kurun waktu 3x24 jam setiap minggunya.
+                         </li>
+                         <li>Hadiah tidak dapat diuangkan. Kegagalan dalam melengkapi dokumen atau pemindahtanganan hadiah akan menggugurkan hadiah. Pemenang tidak dipungut biaya apapun selain biaya berlangganan layanan, seluruh biaya pajak dan administrasi ditanggung oleh pihak penyelenggara.
+                         </li>
+                         <li>Pihak penyelenggara berhak melakukan pembatasan akun kepada akun atau nomor yang terindikasi mencurigakan atau melakukan kecurangan serta berhak untuk meminta identitas KTP untuk proses penyelidikan.
+                         </li>
+                         <li>Terdapat beberapa kemungkinan yang menyebabkan pembatasan akun yang tidak terbatas pada identitas KTP saja, namun juga beberapa faktor teknikal yang tidak bisa disebutkan.
+                         </li>
+                         <li>Pelanggan untuk sementara tidak akan dapat bermain saat akun mengalami pembatasan. Pembatasan akan otomatis dilepas jika terbukti tidak melakukan kecurangan.
+                         </li>
+                         <li>Hadiah terbesar hanya dapat dimenangkan 1 kali dalan sehari oleh 1 nomor. Kesempatan hadiah terbuka di hari berikutnya.
+                         </li>
+                         <li>Syarat & Ketentuan dapat sewaktu-waktu berubah tanpa pemberitahuan terlebih dahulu.
+                         </li>
+                         <li>Hati-hati terhadap penipuan. Segala kerugian yang diakibatkan oleh tindak penipuan yang mengatasnamakan SUSUN GAMBAR, PT. Triyakom, dan 3 di luar tanggung jawab pihak penyelenggara. Dengan bergabung di program SUSUN GAMBAR, maka kamu menyetujui seluruh syarat dan ketentuan yang berlaku. Untuk info lebih lanjut, hubungi Customer Service di 021-52971540 atau email ke cs@triyakom.com.
+                         </li>
+                     </ol>
+                 </div>
+             </div>
+             <div class="tab w-full overflow-hidden">
+                 <input class="absolute opacity-0" id="tab-single-three" type="radio" name="tabs2">
+                 <label class="flex items-center justify-between cursor-pointer px-5 py-2.5" for="tab-single-three">F.A.Q</label>
+                 <div class="tab-content overflow-hidden px-3">
+                     <ol>
+                         <li>
+                             Q: Apa itu Layanan SUSUN GAMBAR? <br/>
+                             A: SUSUN GAMBAR adalah layanan portal berlangganan permainan menyusun gambar yang memungkinkan user dapat hadiah kuota 3 langsung cukup dengan menyelesaikan setiap soal dengan benar.
+                         </li>
+                         <li>
+                             Q: Bagaimana cara mengikuti layanan ini? <br/>
+                             A: Kamu bisa mengikuti program ini dengan cara: <br/>
+                             <ul type="disc">
+                                 <li>
+                                     Pelanggan daftar melalui SMS dengan ketik REG&lt;spasi&gt;SG kirim ke 99386.
+                                 </li>
+                                 <li>
+                                     Pelanggan akan menerima SMS Konfirmasi dan diharuskan mengetik “YA” untuk melanjutkan registrasi.
+                                 </li>
+                                 <li>
+                                     Pelanggan akan menerima notifikasi berlangganan dan link/url untuk bermain.
+                                 </li>
+                             </ul>
+                         </li>
+                         <li>
+                             Q: Apakah saya bisa bermain SUSUN GAMBAR lebih dari sekali dalam sehari?<br/>
+                             A: Kamu bisa bermain lagi dengan membeli kesempatan bermain seharga Rp1000/1 kesempatan bermain. Kamu cukup kunjungi laman profil dan klik button + pada JATAH MAIN. Kamu bisa menambah bantuan hingga 2x tiap harinya.
+                         </li>
+                         <li>
+                             Q: Apakah saya dapat menambah Bantuan lebih dari 1x?<br/>
+                             A: Kamu bisa menambah Bantuan dengan membelinya seharga Rp1000/1 bantuan. Kamu cukup kunjungi laman profil dan klik button + pada BANTUAN. Kamu bisa menambah bantuan hingga 2x tiap harinya.
+                         </li>
+                         <li>
+                             Q: Berapa biaya berlangganan IM3 SUSUN GAMBAR?<br/>
+                             A: Rp1000/hari.
+                         </li>
+                         <li>
+                             Q: Jika saya sudah berlangganan dan mau berhenti atau keluar dari layanan ini, bagaimana caranya?<br/>
+                             A: Untuk berhenti berlangganan, kamu bisa mengirimkan SMS dengan mengetik UNREG&lt;spasi&gt;SG kirim ke 99386.
+                         </li>
+                         <li>
+                             Q: Bagaimana cara saya untuk mendapatkan info detail / komplain? <br/>
+                             A: Kamu bisa hubungi CS Triyakom di 02152971540.
+                         </li>
+                     </ol>
+                 </div>
+             </div>
+             <div class="tab w-full overflow-hidden">
+                 <input class="absolute opacity-0" id="tab-single-four" type="radio" name="tabs2">
+                 <label class="flex items-center justify-between cursor-pointer px-5 py-2.5" for="tab-single-four">F.A.Q Susun Gambar Program SHOCKTOBER</label>
+                 <div class="tab-content overflow-hidden px-3">
+                     <ol>
+                         <li>
+                             Q: Apa itu program SHOCKTOBER? <br/>
+                             A: Program SHOCKTOBER diadakan dalam rangka promo bagi-bagi kuota untuk user yang baru berlangganan dilayanan Susun Gambar. Dalam program ini, Susun Gambar akan membagikan total 100GB untuk 100 pelanggan baru selama periode program berlangsung.
+                         </li>
+                         <li>
+                             Q: Kapan Program SHOCKTOBER diadakan? <br/>
+                             A: Program SHOCKTOBER diadakan dari tanggal 2 Oktober – 27 Oktober 2023.
+                         </li>
+                         <li>
+                             Q: Bagaimana cara mengikuti Program SHOCKTOBER?<br/>
+                             A: User hanya perlu berlangganan layanan Susun Gambar dan harus aktif terus berlangganan selama periode program berlangsung. Namun hanya 100 pelanggan pertama yang berhak untuk mendapatkan hadiah dari program ini.
+                         </li>
+                         <li>
+                             Q: Berapa hadiah yang bisa didapatkan dari program SHOCKTOBER?<br/>
+                             A: Hadiah yang dibagikan adalah total 100GB untuk 100 user pertama yang berlangganan Susun Gambar selama periode berlangsung. Setiap pelanggan yang berhak akan mendapatkan hadiah sebesar 1GB.
+                         </li>
+                         <li>
+                             Q: Bagaimana saya mengetahui jika saya memenangkan hadiah Program SHOCKTOBER?<br/>
+                             A: Pelanggan akan langsung dikirimkan kuota setelah periode program berakhir.
+                         </li>
+                         <li>
+                             Q: Apakah saya bisa mendapatkan hadiah dari program ini lebih dari 1x?<br/>
+                             A: Tidak. 1 nomor hanya bisa mendapatkan hadiah 1x selama program berlangsung.
+                         </li>
+                     </ol>
+                 </div>
+             </div>
+         </div>
+     </article>
+     <footer class="relative flex items-center justify-center">PT Indosat Ooredoo Hutchinson © 2023 All Right Reserved</footer>
+
+     <audio autoplay>
+         <source src="https://s.tykcdn.com/a/susun/backsound_homepage_susun_gambar.mp3" type="audio/mpeg"/>
+     </audio>
+
+ </main>
+
+    {% endblock %}
+
+    {% block script %}
+
+    <script src="https://s.tykcdn.com/assets/susun/js/anime.min.js"></script>
+    <script src="https://s.tykcdn.com/assets/susun/js/animate-info.js"></script>
+    <script type="text/javascript" src="https://s.tykcdn.com/assets/susun/js/accordion.js"></script>
+
+    {% endblock %}
+

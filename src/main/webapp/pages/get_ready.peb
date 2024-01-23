@@ -1,0 +1,27 @@
+	{% extends 'template' %}
+	{% block content %}
+	<main class="relative w-full mx-auto">
+		<article class="burst">
+			<div class="burst-inner"></div>
+		</article>
+		<div id="Countdown" class="countdown absolute w-full h-full top-0 " style="background: none">
+			<img id="a" src="https://s.tykcdn.com/assets/susun_hti/3.svg" />
+			<img id="b" src="https://s.tykcdn.com/assets/susun_hti/2.svg" />
+			<img id="c" src="https://s.tykcdn.com/assets/susun_hti/1.svg" />
+		</div>
+
+        <audio autoplay>
+            <source src="https://s.tykcdn.com/a/susun/ready.mp3" type="audio/mpeg"/>
+        </audio>
+	</main>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://s.tykcdn.com/assets/susun/js/anime.min.js"></script>
+	<script src="/assets/js/countdown.js"></script>
+
+		<script>
+			setTimeout(()=>{
+        location.href = 'quest';
+			}, 3000);
+		</script>
+	{% endblock %}

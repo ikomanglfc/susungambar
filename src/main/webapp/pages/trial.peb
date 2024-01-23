@@ -1,0 +1,93 @@
+    {% extends 'template' %}
+        {% block head %}
+
+        {% endblock %}
+        {% block content %}
+        <main class="relative w-full mx-auto">
+            <article class="min-h-screen relative short-main pt-12 xs:pt-4 px-3">
+                <div class="game-wrapper relative bg-white p-1 mx-auto">
+                    <div class="game-head-wrapper bg-black p-1">
+                        <div class="game-head flex items-center text-center">
+                            <span>Lvl. {{ quest.no }}</span>
+                            <span class="relative">
+                  <div class="timer absolute text-center">
+                      <h6 class="absolute inline-block">{{ quest.timer }}</h6>
+                      <svg class="absolute"><circle id="circle" class="circle_animation" r="29" cy="35" cx="35"/></svg>
+                  </div>
+              </span>
+              <span>
+                  <div>Hadiah Kuota</div>
+                  <div>{{ kuota }}</div>
+              </span>
+                        </div>
+                    </div>
+                    <div class="pt-3 pb-16 px-1.5">
+                        <div id="quest-text" class="game-text text-center mb-4 leading-none px-2">{{ quest.question }}
+                        </div>
+                        <div id="puzzle-box" class="game-box relative w-full mx-auto">
+
+                        </div>
+                    </div>
+                    <div class="game-assist absolute w-full">
+                        <div class="btn game-assist-inner relative active" onclick="hint(this)">
+                            <span class="game-assist-text absolute">Bantuan</span>
+                            <span id="btnHi" class="game-assist-circle absolute flex items-center justify-center">{{ quest.hint }}</span>
+                        </div>
+                    </div>
+                </div>
+                {#<div style="width: 80%; padding: .75em; background-color: white; margin: 3em auto 1em auto" id="logger">LOG
+                </div>#}
+            </article>
+
+            <audio autoplay>
+                <source src="https://s.tykcdn.com/a/susun/main.mp3" type="audio/mpeg"/>
+            </audio>
+        </main>
+        {% endblock %}
+
+    {% block script %}
+    <script src="assets/js/anime.min.js"></script>
+    <script src="assets/js/animate-game.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/timer.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script type="text/javascript" src="assets/js/countdown.js"></script>
+
+    <script>
+        let col = {{ quest.col }};
+        let row = {{ quest.row }};
+        let iW = {{ quest.width }};
+        let iH = {{ quest.height }};
+        let time = {{ quest.timer }};
+        let hintCount = {{ quest.hint }};
+        let images = [
+            {% for img in quest.images %}
+                {ix:{{img.index }}, img: '{{ img.code }}', xm: 0, ym: 0},
+            {% endfor %}
+        ];
+        
+    </script>
+    <script type="text/javascript" src="assets/js/game.js"></script>
+
+    <script>
+        start();
+
+        function start() {
+            calculate();
+            {% if quest.flagPreview %}
+                let box = document.getElementById('puzzle-box');
+                box.innerHTML = '<img style="width: 100%;" src="https://s.tykcdn.com/i/susun/{{ quest.originalImage }}"/>';
+                let text = document.getElementById('quest-text');
+                text.innerHTML = 'Perhatikan gambar berikut';
+                setTimeout(() => {
+                    imgboxAnim();
+                    let text = document.getElementById('quest-text');
+                    text.innerHTML = 'Selesaikan gambar yang telah ditunjukkan sebelumnya';
+                }, 6000);
+                {% else %}
+                imgboxAnim();
+            {% endif %}
+        }
+    </script>
+
+    {% endblock %}

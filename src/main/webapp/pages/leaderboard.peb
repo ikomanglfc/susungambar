@@ -1,0 +1,153 @@
+{% extends 'template' %}
+
+    {% block content %}
+
+    <main class="relative w-full mx-auto">
+        <article class="content relative">
+            <button class="btn-back flex items-center justify-center">
+                <a href="home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </a>
+            </button>
+            <div class="lead-head flex items-center justify-between px-2 py-4">
+                <span class="flex items-center justify-center"><span><img src="https://s.tykcdn.com/assets/susun/icon-bantuan.svg" /></span><div class="px-7 py-1.5">Bantuan x{{ user.hint }}</div><button class="popup-trigger" data-target="#PopupBantuan"><img src="https://s.tykcdn.com/assets/susun/btn-tambah-bantuan.svg" /></button></span>
+                <span class="flex items-center justify-center"><span><img src="https://s.tykcdn.com/assets/susun/icon-jatah-main.svg" /></span><div class="px-7 py-1.5">Jatah Main x{{ user.pull }}</div><button class="popup-trigger" data-target="#PopupJatahMain"><img src="https://s.tykcdn.com/assets/susun/btn-tambah-bantuan.svg" /></button></span>
+            </div>
+            <div class="lead-box bg-white">
+                <div class="lead-box-head text-center px-2 pt-5 pb-8">
+                    <h2>LEADERBOARD</h2>
+{#                    <div class="inline-block px-5 py-0.5 mb-4">Setiap Seminggu Sekali</div>#}
+                    <p>Posisi 1-5 akan mendapatkan kuota tambahan <br/>Periode berakhir setiap seminggu sekali</p>
+                </div>
+                <div class="lead-box-body px-2 pb-8">
+                    <ol>
+                        {% for item in leaderboard %}
+                            {% if item[0] == 1 %}
+
+                            <li class="relative flex items-center justify-between py-3 pl-16"><span>{{ item[5] }}</span><span class="text-center">Level {{ item[4] }}</span><div class="lead-ribbon"><div class="lead-ribbon-inner"><div>{{ item[1] }} GB</div></div></div></li>
+
+                            {% elseif item[0] >= 2 and item[0] <= 5 %}
+
+                                <li class="relative flex items-center justify-between py-3 pl-16"><span>{{ item[5] }}</span><span class="text-center">Level {{ item[4] }}</span><div class="lead-ribbon"><div class="lead-ribbon-inner"><div>{{ item[1] }}MB</div></div></div></li>
+
+                            {% else %}
+
+                                <li class="relative flex items-center justify-between py-3 pl-16"><span>{{ item[5] }}</span><span class="text-center">Level {{ item[4] }}</span></li>
+
+                            {% endif %}
+
+                       {% endfor %}
+
+                    </ol>
+                </div>
+
+                {% for item in leaderboard %}
+                    {% if item[7] == 1 %}
+        <div class="lead-box-body-out bg-white shadow-inner px-1 py-4 fixed bottom-0 w-full">
+                    <div class="relative flex items-center justify-between bg-black px-4 py-3">
+                        <span class="flex items-center justify-center flex-none"></span>
+                        <span class="flex-auto w-64 pl-4"><div>Hi, {{ user.name }}</div><div>{{ item[5] }}
+</div></span>
+                        <span class="flex-auto w-32">Level {{ item[4] }}</span>
+                        <div class="absolute"><img src="https://s.tykcdn.com/assets/susun/leaderboard_ribbon_10.svg" /></div>
+                    </div>
+            </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+        </article>
+        <div id="PopupBantuan" class="popup popup-leaderboard fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: none">
+            <div class="flex items-center justify-center min-h-screen text-center sm:block">
+                <div class="popup-backdrop fixed inset-0 w-full bg-black opacity-90" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div class="popup-content bg-white relative px-4 pt-3 pb-4 inline-block shadow-xl align-middle">
+                    <button id="bantuan" class="popup-close popup-trigger absolute" data-target="#PopupBantuan"><img src="https://s.tykcdn.com/assets/susun/close.png" /></button>
+                    <img class="mx-auto" src="https://s.tykcdn.com/assets/susun/img-beli-bantuan.svg" />
+                    <h5 class="leading-none mb-6">Ayo tambah <span>Bantuan</span> sekarang<br/>agar lebih mudah bermain!<br/>Rp 1110 per-bantuan.</h5>
+                    <button class="btn-emboss btn-main relative block mx-auto">
+                        <a onclick="return gtag_report_conversion('sms:99386?body=SGH1K');" href="sms:99386?body=SGH1K"><img
+                                src="https://s.tykcdn.com/assets/susun/btn-red.svg"/>
+                            <span class="absolute">BELI</span></a>
+                    </button>
+                    <ol class="text-left leading-tight">
+                        <li>Kamu akan mengirimkan SMS &quot;SGH1K&quot; ke 99386.</li>
+                        <li>Jika transaksi berhasil, kamu akan mendapatkan SMS notifikasi dari 99386 dan link untuk main.</li>
+                        <li>Bantuan kamu otomatis bertambah setelah kamu membuka link tersebut.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div id="PopupJatahMain" class="popup popup-leaderboard fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: none">
+            <div class="flex items-center justify-center min-h-screen text-center sm:block">
+                <div class="popup-backdrop fixed inset-0 w-full bg-black opacity-90" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div class="popup-content bg-white relative px-4 pt-3 pb-4 inline-block shadow-xl align-middle">
+                    <button id="jatahmain" class="popup-close popup-trigger absolute" data-target="#PopupJatahMain"><img src="https://s.tykcdn.com/assets/susun/close.png" /></button>
+                    <img class="mx-auto" src="https://s.tykcdn.com/assets/susun/img-beli-jatah-main.svg" />
+                    <h5 class="leading-none mt-1 mb-6">Ayo tambah <span>Jatah Main</span> sekarang<br/>dan main lebih dari 1x sehari!<br/>Rp 1110 untuk sekali main.</h5>
+                    <button class="btn-emboss btn-main relative block mx-auto">
+                        <a onclick="return gtag_report_conversion('sms:99386?body=SUSUN11K');" href="sms:99386?body=SUSUN11K"><img
+                                src="https://s.tykcdn.com/assets/susun/btn-red.svg"/>
+                            <span class="absolute">BELI</span></a>
+                    </button>
+                    <ol class="text-left leading-tight">
+                        <li>Kamu akan mengirimkan SMS &quot;SUSUN11K&quot; ke 99386.</li>
+                        <li>Jika transaksi berhasil, kamu akan mendapatkan SMS notifikasi dari 99386 dan link untuk main.</li>
+                        <li>Jatah main kamu otomatis bertambah setelah kamu membuka link tersebut.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <audio autoplay>
+            <source src="https://s.tykcdn.com/a/susun/backsound_homepage_susun_gambar.mp3" type="audio/mpeg"/>
+        </audio>
+
+    </main>
+    {% endblock %}
+
+{% block script %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://s.tykcdn.com/assets/susun/js/anime.min.js"></script>
+<script src="https://s.tykcdn.com/assets/susun/js/animate-leaderboard.js"></script>
+<script type="text/javascript" src="assets/js/leaderboard.js"></script>
+<script src="/assets/js/animate-popup.js"></script>
+
+ <script>
+
+     {% if pop =="hint" %}
+
+     $("#bantuan").click();
+
+     {% endif %}
+
+     {% if pop == "playturn" %}
+
+     $("#jatahmain").click();
+
+     {% endif %}
+
+     $(document).ready(function(){
+         $('.pull').click(function(){
+             var url = $(this).attr('data-href');
+             gtag_report_conversion(getMobileOperatingSystem(url));
+             document.location.href = getMobileOperatingSystem(url);
+         });
+     });
+
+     function getMobileOperatingSystem(url) {
+         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+             // "iOS";
+             return url;
+         } else {
+             url = url.replace("&", "");
+             return url;
+         }
+     }
+
+ </script>
+
+ {% endblock %}
+

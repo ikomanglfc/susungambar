@@ -1,0 +1,194 @@
+	{% extends 'template' %}
+
+        {% block head %}
+
+        <link href="https://s.tykcdn.com/assets/wheely/floating/wheely_hutch.css" rel="stylesheet" />
+
+        {% endblock %}
+
+		{% block content %}
+
+        <style>
+            .turnsGrey {
+                opacity: 0.7;
+                filter: grayscale(1);
+                pointer-events: none;
+                cursor: not-allowed;
+            }
+        </style>
+
+		<main class="relative w-full mx-auto">
+			<article class="burst">
+				<div class="burst-inner"></div>
+			</article>
+			<article class="content relative short-main">
+				<img style="transform: translateY(-500px)" class="home-banner" src="{{ homeBanner }}" />
+				<div style="transform: translateX(-350)" class="home-button mt-4">
+					<button class="btn-emboss btn-main relative block mx-auto">
+						<a href="#" onclick="mainClick()"><img
+							src="https://s.tykcdn.com/assets/susun/btn-red.svg"/>
+							<span class="absolute">Main</span></a>
+					</button>
+					<button class="btn-emboss btn-info relative block mx-auto">
+						<a href="info"><img src="https://s.tykcdn.com/assets/susun/btn-orange.svg"/>
+							<span class="absolute">Info Lainnya</span></a>
+					</button>
+					<button class="btn-emboss btn-profile relative block mx-auto">
+						<a href="leaderboard"><img src="https://s.tykcdn.com/assets/susun/btn-orange.svg"/>
+							<span class="absolute">Profil</span></a>
+					</button>
+				</div>
+			</article>
+			<footer class="relative flex items-center justify-center">PT Indosat Ooredoo Hutchinson © 2023 All Right Reserved</footer>
+			<article id="loading" class="loading-center absolute w-full hidden">
+				<div class="loading-logo"><img class="block mx-auto" src="https://s.tykcdn.com/assets/susun_hti/logo.svg"/></div>
+				<div class="loading-bar mt-6 mx-auto grid grid-cols-5 gap-3">
+					<span></span><span></span><span></span><span></span><span></span></div>
+			</article>
+
+			<div id="PopupHome" class="popup popup-login fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title"
+					 role="dialog" aria-modal="true" style="display: none">
+				<div class="flex items-center justify-center min-h-screen text-center sm:block">
+					<div class="popup-backdrop fixed inset-0 w-full bg-black bg-opacity-90" aria-hidden="true"></div>
+					<span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+					<div class="popup-content bg-white relative px-5 pt-16 pb-6 inline-block shadow-xl align-middle">
+						<div class="popup-login-icon absolute"><img src="https://s.tykcdn.com/assets/susun_hti/logo.svg"/></div>
+						<h6 class="text-center">Selangkah lagi untuk menang dan mendapatkan kuota!</h6>
+						<input id="name" class="w-full px-3 py-3.5 mt-6 mb-5" type="text" placeholder="Masukkan nama kamu"/>
+						<button id="name-click" class="btn-emboss btn-main relative block mx-auto" data-target="#PopupHome">
+							<img src="https://s.tykcdn.com/assets/susun/btn-red.svg"/>
+							<span class="absolute">Mulai </span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+            <div id="PopupBlock" class="popup popup-leaderboard fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: none">
+                <div class="flex items-center justify-center min-h-screen text-center sm:block">
+                    <div class="popup-backdrop fixed inset-0 w-full bg-black bg-opacity-90" aria-hidden="true"></div>
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                    <div class="popup-content bg-white relative px-4 pt-3 pb-4 inline-block shadow-xl align-middle">
+                        <button id="blockuser" class="popup-close popup-trigger absolute" data-target="#PopupBlock"><img src="https://s.tykcdn.com/assets/susun/close-w.png" /></button>
+                        <img class="mx-auto" src="https://s.tykcdn.com/assets/susun/img-block.png" />
+                        <h6 class="leading-none mt-1 mb-6">Mohon maaf, aktivitas mencurigakan terdeteksi dari akun anda. <br/> Demi keamanan, akun anda akan kami batasi sampai penyelidikan selesai. Terima kasih. <br/>CS: cs@triyakom.com.</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div id="PopupBanner" class="popup active popup-banner fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: block">
+                <div class="flex items-center justify-center min-h-screen text-center sm:block">
+                    <div class="popup-backdrop fixed inset-0 w-full bg-black opacity-90" aria-hidden="true"></div>
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                    <div class="popup-content bg-white relative px-300 pt-300 pb-300 inline-block shadow-xxl align-middle" style="max-width: 320px; margin: 0 auto">
+                        <button id="triggerAudio" class="popup-close popup-trigger absolute" data-target="#PopupBanner"><img src="https://s.tykcdn.com/assets/susun/close-w.png" /></button>
+                        <img style="position: relative;
+transform: none; left: 0; border-radius: 12px" src=" {{ popupBanner }} "/>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: none">
+                <audio id="audio" loop>
+                    <source src="https://s.tykcdn.com/a/susun/backsound_homepage_susun_gambar.mp3" type="audio/mpeg"/>
+                </audio>
+            </div>
+{#            <div class="floating-wrapper">#}
+{#            <div class="floating-btn">#}
+{#                <!--theming-->#}
+{#                <div class="floating-btn-ind">#}
+{#                    <img src="https://s.tykcdn.com/assets/wheely/floating/flt_ind_l.svg" />#}
+{#                    <img src="https://s.tykcdn.com/assets/wheely/floating/flt_ind_r.svg" />#}
+{#                </div>#}
+{#                <!--end theming-->#}
+{#                <div class="floating-btn-inner">#}
+{#                    <div class="floating-wheel-outer">#}
+{#                        <a href="{{ urlLuckySpin }}" class="floating-wheel">#}
+{#                            <div class="floating-wheel-back">#}
+{#                                <img src="https://s.tykcdn.com/assets/wheely/floating/wheel.svg" />#}
+{#                            </div>#}
+{#                            <div class="floating-wheel-front">#}
+{#                                <img class="isat" src="https://s.tykcdn.com/assets/wheely/floating/wheel_frame_isat.svg" />#}
+{#                                <img class="hutch" src="https://s.tykcdn.com/assets/wheely/floating/wheel_frame_hutch.svg" />#}
+{#                            </div>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                    <a href="{{ urlLuckySpin }}" class="floating-text">#}
+{#                        <img class="isat" src="https://s.tykcdn.com/assets/wheely/floating/text_isat.svg" />#}
+{#                        <img class="hutch" src="https://s.tykcdn.com/assets/wheely/floating/text_hutch.svg" />#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{#            </div>#}
+        </main>
+		{% endblock %}
+
+	{% block script %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/assets/js/anime.min.js"></script>
+	<script src="/assets/js/animate-home.js"></script>
+    <script src="/assets/js/animate-popup.js"></script>
+    <script src="/assets/js/animate-loading.js"></script>
+	<script>
+		let animeBanner = animateBanner();
+		let animeHome = animateHome();
+			{% if popName != null %}
+			popUpClicked('#PopupHome');
+			$('#name-click').on('click', () => {
+				let name = $('#name').val();
+				$.ajax('/update_name?name=' + encodeURIComponent(name));
+				popUpClicked('#PopupHome');
+				$('#loading').removeClass('hidden');
+
+				animateLoading();
+				setTimeout(() => {
+					$('#loading').addClass('hidden');
+					animeBanner.play();
+					animeHome.play();
+				}, 2000);
+
+			});
+			{% else %}
+				animeBanner.play();
+				animeHome.play();
+			{% endif %}
+
+        document.getElementById("triggerAudio").addEventListener("click", () => {
+            document.getElementById("audio").play();
+        });
+
+        function mainClick(){
+    {% if tutor == 0 %}
+        location.href = 'quest';
+    {% elseif block %}
+        popUpClicked('#PopupBlock');
+    {% elseif hasPlay != null %}
+        location.href = 'ready';
+    {% elseif hasPlay is null %}
+        location.href = 'leaderboard?p=playturn';
+    {% endif %}
+        return false;
+        }
+
+        function disableSpinWheel() {
+            const disabledDiv = document.querySelectorAll('.floating-btn');
+            disabledDiv.forEach(divElement => {
+                divElement.classList.add('turnsGrey');
+            });
+        }
+
+        function enableSpinWheel() {
+            const enabledDiv = document.querySelectorAll('.floating-btn');
+            enabledDiv.forEach(divElement => {
+                divElement.classList.remove('turnsGrey');
+            });
+        }
+
+    {% if eligible %}
+        enableSpinWheel();
+    {% elseif notEligible %}
+        disableSpinWheel();
+    {% endif %}
+
+	</script>
+	{% endblock %}
+

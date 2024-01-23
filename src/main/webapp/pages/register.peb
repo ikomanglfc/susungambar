@@ -1,0 +1,94 @@
+    {% extends 'template' %}
+    {% block content %}
+
+     <style>
+
+         .burst{
+             z-index: -1;
+         }
+
+         .loading-logo img {
+             margin-top: 10.75em;
+         }
+
+         .btn-main {
+             margin-top: .75em;
+         }
+
+         .fc-big{
+             margin-top: .75em;
+             font-size: 1.75em;
+             text-align: center;
+
+         }
+         .fc-small{
+             margin-top: .25em;
+             text-align: center;
+             font-size: 1.2em;
+         }
+
+     </style>
+
+    <main class="relative w-full mx-auto">
+
+        <article class="burst">
+            <div class="burst-inner"></div>
+        </article>
+
+     <div class="center">
+
+        <div class="loading-logo"><img class="block mx-auto" src="https://s.tykcdn.com/assets/susun_hti/logo.svg"/>
+
+        </div>
+
+         <div class="fc-big" style="color: #fff">{{ title }}</div>
+         <div class="fc-small" style="color: #fff"> {{ text }}</div>
+
+        <button class="btn-emboss btn-main relative block mx-auto">
+            <a onclick="return gtag_report_conversion('{{ url1 }}');" href="{{ url2 }}"><img
+                    src="https://s.tykcdn.com/assets/susun/btn-red.svg"/>
+                <span class="absolute">{{ btn }}</span></a>
+        </button>
+     </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://s.tykcdn.com/assets/susun/js/anime.min.js"></script>
+    <script src="/assets/js/animate-home.js"></script>
+
+<script>
+
+    $(document).ready(function(){
+        $('.pull').click(function(){
+            var url = $(this).attr('data-href');
+            gtag_report_conversion(getMobileOperatingSystem(url));
+            document.location.href = getMobileOperatingSystem(url);
+        });
+    });
+
+    function getMobileOperatingSystem(url) {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        // Windows Phone must come first because its UA also contains "Android"
+        /*if (/windows phone/i.test(userAgent)) {
+          return "Windows Phone";
+        }
+
+        if (/android/i.test(userAgent)) {
+          return "Android";
+        }*/
+
+        // iOS detection from: http://stackoverflow.com/a/9039885/177710
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            // "iOS";
+            return url;
+        }else{
+            url = url.replace("&", "");
+            return url;
+        }
+
+    }
+
+</script>
+
+    {% endblock %}
